@@ -13,9 +13,9 @@ class PepSpider(scrapy.Spider):
     def parse(self, response):
         peps = response.css('#numerical-index tr a::attr(href)').getall()
         for pep_link in peps:
-            yield response.follow(pep_link, callback=self.pep_parse)
+            yield response.follow(pep_link, callback=self.parse_pep)
 
-    def pep_parse(self, response):
+    def parse_pep(self, response):
         title_formatted = re.search(
             REGEX_PEP, response.css('h1.page-title::text').get()
         )
