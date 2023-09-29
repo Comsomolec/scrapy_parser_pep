@@ -1,3 +1,5 @@
+from pathlib import Path
+
 BOT_NAME = "pep_parse"
 
 SPIDER_MODULES = ["pep_parse.spiders"]
@@ -20,3 +22,12 @@ FEEDS = {
 ITEM_PIPELINES = {
     'pep_parse.pipelines.PepParsePipeline': 300,
 }
+
+BASE_DIR = Path(__file__).parent
+RESULTS = 'results'
+URL = 'peps.python.org'
+STATUS_SUMMARY_FILENAME = 'status_summary_{current_time}.csv'
+
+TIME_FORMAT = '%Y-%m-%d_%H-%M-%S'
+
+REGEX_PEP = r'(?P<number>\d+)\W+(?P<name>.+)'
