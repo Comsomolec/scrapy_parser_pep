@@ -22,9 +22,13 @@ class PepParsePipeline:
         now_formatted = datetime.now().strftime(TIME_FORMAT)
         file_name = STATUS_SUMMARY_FILENAME.format(current_time=now_formatted)
         file_path = self.results_dir / file_name
-        with open(file_path, 'w', encoding='utf-8', newline='') as file:
-            csv.writer(file, dialect=csv.unix_dialect).writerows([
-                ('Статус, Количество', ),
+        with open(file_path, 'w', encoding='utf-8') as file:
+            csv.writer(
+                file,
+                dialect=csv.unix_dialect,
+                quoting=csv.QUOTE_NONE,
+            ).writerows((
+                ('Статус', 'Количество'),
                 *self.count_pep_status.items(),
-                ('Всего', sum(self.count_pep_status.values()))
-            ])
+                ('Всего', sum(self.count_pep_status.values())),
+            ))
